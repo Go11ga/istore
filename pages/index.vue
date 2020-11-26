@@ -1,11 +1,23 @@
 <template>
   <div>
     <h1>Main page</h1>
+    <CategoriesList />
   </div>
 </template>
 
 <script>
-export default {}
+import { Component, Vue } from 'nuxt-property-decorator'
+import CategoriesList from '@/components/common/CategoriesList'
+
+@Component({
+  components: {
+    CategoriesList
+  }
+})
+export default class MainPage extends Vue {
+
+}
+
 </script>
 
 <style>
