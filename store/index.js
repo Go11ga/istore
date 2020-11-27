@@ -29,9 +29,10 @@ export const actions = {
       console.log(e)
     }
   },
-  getCurrentCategory ({ commit }, { route }) {
+  async getCurrentCategory ({ commit }, { route }) {
     try {
-
+      const products = await this.$axios.$get('https://my-json-server.typicode.com/Go11ga/istore/products')
+      console.log(products)
     } catch (e) {
       console.log(e)
     }
