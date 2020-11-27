@@ -4,19 +4,27 @@
 // todo обработка ошибок в catch
 export const state = () => {
   return {
-    categoriesList: []
+    categoriesList: [],
+    currentCategory: {}
   }
 }
 
 export const getters = {
   categoriesList (state) {
     return state.categoriesList
+  },
+  currentCategory (state) {
+    return state.currentCategory
   }
 }
 
 export const mutations = {
   setCategoriesList (state, categoriesList) {
     state.categoriesList = categoriesList
+  },
+
+  setCurrentCategory (state, { category, productsInner }) {
+    state.currentCategory = { ...category, products: productsInner }
   }
 }
 
@@ -29,10 +37,27 @@ export const actions = {
       console.log(e)
     }
   },
-  async getCurrentCategory ({ commit }, { route }) {
+  async getCurrentCategory ({ state, commit }, { route }) {
     try {
-      // const products = await this.$axios.$get('https://my-json-server.typicode.com/Go11ga/istore/products')
-      // console.log(products)
+      const category = state.categoriesList.find(el => el.cSlug === route)
+      const products = await this.$axios.$get('/mocks/products.json')
+
+      const productsInner = []
+
+      products.map(el => {
+        if (el.category_id === category.id) {
+          productsInner.push({
+            id: el.id,
+            pName: el.pName,
+            pSlug: el.pSlug,
+            pPrice: el.pPrice,
+            image: `https://source.unsplash.com/300x300/?${el.pName}`
+          })
+        }
+        return productsInner
+      })
+
+      commit('setCurrentCategory', { category, productsInner })
     } catch (e) {
       console.log(e)
     }
