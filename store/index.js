@@ -5,6 +5,7 @@
 export const state = () => {
   return {
     categoriesList: [],
+    categoriesList2: [],
     currentCategory: {}
   }
 }
@@ -12,6 +13,9 @@ export const state = () => {
 export const getters = {
   categoriesList (state) {
     return state.categoriesList
+  },
+  categoriesList2 (state) {
+    return state.categoriesList2
   },
   currentCategory (state) {
     return state.currentCategory
@@ -23,6 +27,10 @@ export const mutations = {
     state.categoriesList = categoriesList
   },
 
+  setCategoriesList2 (state, categoriesList2) {
+    state.categoriesList2 = categoriesList2
+  },
+
   setCurrentCategory (state, { category, productsInner }) {
     state.currentCategory = { ...category, products: productsInner }
   }
@@ -32,7 +40,9 @@ export const actions = {
   async nuxtServerInit ({ commit }) {
     try {
       const categoriesList = await this.$axios.$get('https://my-json-server.typicode.com/Go11ga/istore/categories')
+      const categoriesList2 = await this.$axios.$get('https://my-json-server.typicode.com/Go11ga/istore/categs')
       commit('setCategoriesList', categoriesList)
+      commit('setCategoriesList2', categoriesList2)
     } catch (e) {
       console.log(e)
     }

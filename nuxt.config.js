@@ -19,7 +19,9 @@ module.exports = {
       { hid: 'description', name: 'description', content: 'Интернет-магазин' }
     ],
     link: [
-      { rel: 'shortcut icon', href: 'favicon.ico' }
+      { rel: 'shortcut icon', href: 'favicon.ico' },
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap' }
     ]
   },
   rootDir: __dirname,
@@ -63,10 +65,7 @@ module.exports = {
     timeout: 5000
   },
   styleResources: {
-    // your settings here
-    scss: ['./assets/scss/global-variables.scss'], // alternative: scss
-    less: [],
-    stylus: []
+    scss: ['@/assets/scss/style.scss']
   },
   /*
   ** Axios module configuration

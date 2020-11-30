@@ -1,5 +1,7 @@
 <template>
-  <nuxt/>
+  <div class="container">
+    <nuxt />
+  </div>
 </template>
 
 <script>
@@ -23,7 +25,7 @@ export default {
       .toLowerCase()
       .replace(/\/$/, '')}`
     return {
-      meta: [...this.meta],
+      meta: Array.from(this.meta),
       link: [{ rel: 'canonical', href: canonical }
       ]
     }
@@ -31,6 +33,22 @@ export default {
 }
 </script>
 
-<style>
-/* дефолтные стили здесь */
+<style lang="scss">
+  html {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    color: $black;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .container {
+    width: $widthXL;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
 </style>
