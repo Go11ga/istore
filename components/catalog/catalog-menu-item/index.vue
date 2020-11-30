@@ -33,7 +33,7 @@ export default class CatalogItem extends Vue {
   background
 
   get link () {
-    return '/'
+    return `/catalog/${this.categoryItem.cSlug}`
   }
 }
 </script>
