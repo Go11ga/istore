@@ -3,7 +3,7 @@
     <h1>Категория</h1>
     <p>{{ category.cName }}</p>
     <p>{{ category.cDesc }}</p>
-    <div>
+    <div class="box">
       <div v-for="product in category.products" :key="product.id">
         <ProductBrief :product="product" />
       </div>
@@ -47,3 +47,12 @@ export default class CategorySlug extends Vue {
   }
 }
 </script>
+
+<style>
+
+.box {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+</style>

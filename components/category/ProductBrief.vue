@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card">
     <nuxt-link :to="`/product/${product.pSlug}`">
       <p>{{ product.pName }}</p>
       <img :src="product.image" />
@@ -18,3 +18,7 @@ export default class ProductBrief extends Vue {
   @Prop() product
 }
 </script>
+
+<style>
+
+</style>

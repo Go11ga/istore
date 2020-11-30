@@ -50,5 +50,97 @@
       "cImage":"https://source.unsplash.com/300x300/?bull",
       "products":[]
     }
+  ],
+  "categs": [
+    {
+      "id":1,
+      "cTitle":"Ювелирные изделия",
+      "cName":"Ювелирные изделия",
+      "cSlug":"Ювелирные изделия",
+      "cMetaDescription":"Мета описание",
+      "cDesc":"Описание",
+      "products":[]
+    },
+    {
+      "id":2,
+      "cTitle":"Кольца",
+      "cName":"Кольца",
+      "cSlug":"Кольца",
+      "cMetaDescription":"Мета описание",
+      "cDesc":"Описание",
+      "products":[]
+    },
+    {
+      "id":3,
+      "cTitle":"Кольца обручальные",
+      "cName":"Кольца обручальные",
+      "cSlug":"Кольца обручальные",
+      "cMetaDescription":"Мета описание",
+      "cDesc":"Описание",
+      "products":[]
+    },
+    {
+      "id":4,
+      "cTitle":"Подвески",
+      "cName":"Подвески",
+      "cSlug":"Подвески",
+      "cMetaDescription":"Мета описание",
+      "cDesc":"Описание",
+      "products":[]
+    },
+    {
+      "id":5,
+      "cTitle":"Цепи",
+      "cName":"Цепи",
+      "cSlug":"Цепи",
+      "cMetaDescription":"Мета описание",
+      "cDesc":"Описание",
+      "products":[]
+    },
+    {
+      "id":6,
+      "cTitle":"Браслеты",
+      "cName":"Браслеты",
+      "cSlug":"Браслеты",
+      "cMetaDescription":"Мета описание",
+      "cDesc":"Описание",
+      "products":[]
+    },
+    {
+      "id":7,
+      "cTitle":"Колье",
+      "cName":"Колье",
+      "cSlug":"Колье",
+      "cMetaDescription":"Мета описание",
+      "cDesc":"Описание",
+      "products":[]
+    },
+    {
+      "id":8,
+      "cTitle":"Серьги",
+      "cName":"Серьги",
+      "cSlug":"Серьги",
+      "cMetaDescription":"Мета описание",
+      "cDesc":"Описание",
+      "products":[]
+    },
+    {
+      "id":9,
+      "cTitle":"Броши",
+      "cName":"Броши",
+      "cSlug":"Броши",
+      "cMetaDescription":"Мета описание",
+      "cDesc":"Описание",
+      "products":[]
+    },
+    {
+      "id":10,
+      "cTitle":"Кулоны",
+      "cName":"Кулоны",
+      "cSlug":"Кулоны",
+      "cMetaDescription":"Мета описание",
+      "cDesc":"Описание",
+      "products":[]
+    }
   ]
 }
