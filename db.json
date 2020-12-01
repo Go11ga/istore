@@ -10,49 +10,6 @@
   },
   "categories": [
     {
-      "id":"cats",
-      "cTitle":"Cats",
-      "cName":"Cats",
-      "cSlug":"cats",
-      "cMetaDescription":"Мета описание",
-      "cDesc":"Описание",
-      "cImage":"https://source.unsplash.com/300x300/?cat,cats",
-      "products":[]
-    },
-    {
-      "id":"dogs",
-      "cTitle":"Dogs",
-      "cName":"Dogs",
-      "cSlug":"dogs",
-      "cMetaDescription":"Мета описание",
-      "cDesc":"Описание",
-      "cImage":"https://source.unsplash.com/300x300/?dog,dogs",
-      "products":[]
-    },
-    {
-      "id":"wolfs",
-      "cTitle":"Wolfs",
-      "cName":"Wolfs",
-      "cSlug":"wolfs",
-      "cMetaDescription":"Мета описание",
-      "cDesc":"Описание",
-      "cImage":"https://source.unsplash.com/300x300/?wolf",
-      "products":[]
-    },
-    {
-      "id":"bulls",
-      "cTitle":"Bulls",
-      "cName":"Bulls",
-      "cSlug":"bulls",
-      "cMetaDescription":
-      "Мета описание",
-      "cDesc":"Описание",
-      "cImage":"https://source.unsplash.com/300x300/?bull",
-      "products":[]
-    }
-  ],
-  "categs": [
-    {
       "id":1,
       "cTitle":"Ювелирные изделия",
       "cName":"Ювелирные изделия",

@@ -33,11 +33,11 @@ import CatalogItem from '@/components/catalog/catalog-menu-item/index'
   }
 })
 export default class CatalogApp extends Vue {
-  @Getter('categoriesList2')
-  categoriesList2
+  @Getter('categoriesList')
+  categoriesList
 
   get categoryChunks () {
-    return mixChunck(this.categoriesList2, 3, 2)
+    return mixChunck(this.categoriesList, 3, 2)
   }
 }
 
