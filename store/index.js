@@ -2,10 +2,13 @@
 // todo комментарии
 // todo google lighthouse
 // todo обработка ошибок в catch
+// todo разделить склад на модули
 export const state = () => {
   return {
     categoriesList: [],
-    currentCategory: {}
+    currentCategory: {},
+    currentCategoryLength: 3,
+    currentPage: 1
   }
 }
 
@@ -15,6 +18,12 @@ export const getters = {
   },
   currentCategory (state) {
     return state.currentCategory
+  },
+  currentCategoryLength (state) {
+    return state.currentCategoryLength
+  },
+  currentPage (state) {
+    return state.currentPage
   }
 }
 
@@ -23,8 +32,16 @@ export const mutations = {
     state.categoriesList = categoriesList
   },
 
-  setCurrentCategory (state, { category, productsInner }) {
-    state.currentCategory = { ...category, products: productsInner }
+  setCurrentCategory (state, { category, productsInnerSpliced }) {
+    state.currentCategory = { ...category, products: productsInnerSpliced }
+  },
+
+  setCurrentCategoryLength (state, length) {
+    state.currentCategoryLength = length
+  },
+
+  setCurrentPage (state, page) {
+    state.currentPage = page
   }
 }
 
@@ -37,27 +54,58 @@ export const actions = {
       console.log(e)
     }
   },
-  async getCurrentCategory ({ state, commit }, { route }) {
+  async getCurrentCategory ({ state, commit }, params) {
     try {
-      const category = state.categoriesList.find(el => el.cSlug === route)
+      const category = state.categoriesList.find(el => el.cSlug === params.category)
+      // console.log('category')
+      // console.log(category)
+      // console.log(category.cSlug)
       const products = await this.$axios.$get('/mocks/products.json')
 
       const productsInner = []
 
+      // console.log('products[0].category_id')
+      // console.log(products[0].category_id)
+
       products.map(el => {
-        if (el.category_id === category.id) {
+        if (el.category_id === category.cSlug) {
           productsInner.push({
             id: el.id,
             pName: el.pName,
             pSlug: el.pSlug,
             pPrice: el.pPrice,
-            image: `https://source.unsplash.com/300x300/?${el.pName}`
+            image: `https://cataas.com/cat?width=350&height=273&i=${el.id}`
           })
         }
         return productsInner
       })
 
-      commit('setCurrentCategory', { category, productsInner })
+      const productsPerPage = 6
+      const productsInnerLength = Math.ceil(productsInner.length / productsPerPage)
+
+      const page = params.page
+
+      const start = (params.page - 1) * productsPerPage
+
+      const productsInnerSpliced = productsInner.splice(start, productsPerPage)
+      // console.log(productsInnerSpliced)
+
+      // console.log('productsInner')
+      // console.log(productsInner)
+
+      // const productsPerPage = 6
+      // const start = (params.page - 1) * productsPerPage
+      // const end = start + productsPerPage - 1
+
+      // const productsInnerSpliced = productsInner.splice(start, end)
+
+      // const productsInnerLength = Math.ceil(productsInner.length / productsPerPage)
+
+      // const page = params.page
+
+      commit('setCurrentCategory', { category, productsInnerSpliced })
+      commit('setCurrentCategoryLength', productsInnerLength)
+      commit('setCurrentPage', page)
     } catch (e) {
       console.log(e)
     }
