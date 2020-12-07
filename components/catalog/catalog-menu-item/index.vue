@@ -23,15 +23,27 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator'
 
 @Component
 export default class CatalogItem extends Vue {
+  /**
+   * * Ширина карточки категории в зависимости от чанка
+   */
   @Prop()
   wide
 
+  /**
+   * * Информация по категории
+   */
   @Prop()
   categoryItem
 
+  /**
+   * * Фон карточки в зависимости от расположения
+   */
   @Prop()
   background
 
+  /**
+   * * Роут для перехода к конкретной категории
+   */
   get link () {
     return `/catalog/${this.categoryItem.cSlug}/1`
   }
@@ -43,8 +55,8 @@ export default class CatalogItem extends Vue {
     width: 33.33333%;
     margin: 0 10px;
 
-    background: #F8F9FB 100% 0 no-repeat;
-    color: #313A47;
+    background: $light_blue 100% 0 no-repeat;
+    color: $black;
     transition: background-color .15s;
 
     &--wide {
@@ -60,14 +72,14 @@ export default class CatalogItem extends Vue {
     justify-content: space-between;
 
     text-decoration: none;
-    color: #313A47;
+    color: $black;
 
     &--bgc {
-      background: #FFFBF3 100% 0 no-repeat;
+      background: $light_gold 100% 0 no-repeat;
     }
 
     &:hover {
-      background-color: #FEF7EA;
+      background-color: $hover_gold;
     }
   }
 

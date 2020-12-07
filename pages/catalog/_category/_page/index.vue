@@ -1,47 +1,66 @@
 <template>
   <div class="catalog">
-    <h1>Категория</h1>
+    <h1>Категория: {{ currentCategory.cTitle }}</h1>
     <div class="catalog__list">
-      <catalogItem
+      <catalog-item
         v-for="product in products"
         :key="product.id"
         :model="product"
       />
     </div>
-    <pagination
-      :current-page="currentPage"
-      :total-count="currentCategoryLength"
-    />
+    <div class="catalog__pagination">
+      <pagination
+        :current-page="currentPage"
+        :total-count="currentCategoryLength"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-import { Vue, Component, Getter } from 'nuxt-property-decorator'
-import catalogItem from '@/components/catalog/catalog-item/index'
-import pagination from '@/components/common/ui/pagination/index'
+import { Vue, Component } from 'nuxt-property-decorator'
+import { Getter } from 'vuex-class'
+import CatalogItem from '@/components/catalog/catalog-item/index'
+import Pagination from '@/components/common/ui/pagination/index'
 
 @Component({
   components: {
-    catalogItem,
-    pagination
+    CatalogItem,
+    Pagination
   }
 })
 export default class Category extends Vue {
-  @Getter
+  /**
+   * * Текущая категория
+   */
+  @Getter('catalog/currentCategory')
   currentCategory
 
-  @Getter
+  /**
+   * * Длина массива продуктов в текущей категории
+   */
+  @Getter('catalog/currentCategoryLength')
   currentCategoryLength
 
-  @Getter
+  /**
+   * * Текущая страница пагинации
+   */
+  @Getter('catalog/currentPage')
   currentPage
 
+  /**
+   * * массив товаров в текущей категории
+   */
   get products () {
     return this.currentCategory.products
   }
 
-  async asyncData ({ app, params }) {
-    await app.store.dispatch('getCurrentCategory', params)
+  /**
+   * * Получение категории с массивом товаров
+   */
+  async asyncData (ctx) {
+    const params = ctx.route.params
+    await ctx.store.dispatch('catalog/getCurrentCategory', params)
   }
 }
 </script>
@@ -49,7 +68,12 @@ export default class Category extends Vue {
 <style lang="scss" scoped>
   .catalog__list {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .catalog__pagination {
+    margin-top: 20px;
   }
 </style>

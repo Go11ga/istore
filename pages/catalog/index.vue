@@ -9,7 +9,7 @@
         :key="index"
         class="main-catalog__item"
       >
-        <CatalogItem
+        <catalog-item
           v-for="category in categoryChunk"
           :key="category.id"
           :category-item="category"
@@ -33,14 +33,16 @@ import CatalogItem from '@/components/catalog/catalog-menu-item/index'
   }
 })
 export default class CatalogApp extends Vue {
-  @Getter('categoriesList')
+  @Getter('catalog/categoriesList')
   categoriesList
 
+  /**
+   * * Делим категории на чанки
+   */
   get categoryChunks () {
     return mixChunck(this.categoriesList, 3, 2)
   }
 }
-
 </script>
 
 <style lang="scss" scoped>

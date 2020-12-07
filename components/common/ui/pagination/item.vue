@@ -56,8 +56,8 @@ export default class PaginationItem extends Vue {
     height: 36px;
     width: 36px;
 
-    border: 1px solid #DEE2E6;
-    background-color: #fff;
+    border: 1px solid $grey;
+    background-color: $white;
     color: $black;
     font-size: 14px;
     text-decoration: none;
@@ -67,8 +67,8 @@ export default class PaginationItem extends Vue {
     transition: .2s;
 
     &:hover, &.active {
-      border-color: red;
-      color: red;
+      border-color: $red;
+      color: $red;
       z-index: 2;
     }
   }

@@ -93,8 +93,8 @@ export default class Pagination extends Vue {
     height: 36px;
     width: 36px;
 
-    border: 1px solid #DEE2E6;
-    background-color: #fff;
+    border: 1px solid $grey;
+    background-color: $white;
     color: $black;
     font-size: 14px;
     text-decoration: none;
@@ -136,8 +136,8 @@ export default class Pagination extends Vue {
     }
 
     &:hover, &.active {
-      border-color: red;
-      color: red;
+      border-color: $red;
+      color: $red;
     }
   }
 </style>
