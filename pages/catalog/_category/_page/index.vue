@@ -31,7 +31,7 @@ import Pagination from '@/components/common/ui/pagination/index'
 })
 export default class Category extends Vue {
   /**
-   * * Текущая категория
+   * * Выбранная категория
    */
   @Getter('catalog/currentCategory')
   currentCategory
@@ -49,7 +49,7 @@ export default class Category extends Vue {
   currentPage
 
   /**
-   * * массив товаров в текущей категории
+   * * Массив товаров в текущей категории
    */
   get products () {
     return this.currentCategory.products

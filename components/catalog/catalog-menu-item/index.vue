@@ -1,4 +1,5 @@
 <template>
+  <!-- Компонент карточки каталога -->
   <div
     class="category"
     :class="{'category--wide' : wide}"

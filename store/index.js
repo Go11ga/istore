@@ -5,13 +5,10 @@ export const getters = {}
 export const mutations = {}
 
 export const actions = {
+  /**
+   * * Получение списка категорий при инициализации Vue
+   */
   async nuxtServerInit (ctx) {
-    /**
-     * * Получение списка категорий при инициализации Vue
-     */
     await ctx.dispatch('catalog/getCategoriesList')
   }
 }
-
-// todo google lighthouse
-// todo обработка ошибок в catch

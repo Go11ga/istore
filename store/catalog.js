@@ -87,12 +87,12 @@ export const actions = {
       const category = state.categoriesList.find(el => el.cSlug === params.category)
 
       /**
-       * * Все товары из static/mocks
+       * * JSON всех товаров из static/mocks
        */
       const products = await this.$axios.$get('/mocks/products.json')
 
       /**
-       * * товары для конкретной категории
+       * * Товары для выбранной категории
        */
       const productsInner = []
 
@@ -141,5 +141,3 @@ export const actions = {
     }
   }
 }
-
-// todo добавить кэширование

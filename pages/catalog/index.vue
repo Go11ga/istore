@@ -33,6 +33,9 @@ import CatalogItem from '@/components/catalog/catalog-menu-item/index'
   }
 })
 export default class CatalogApp extends Vue {
+  /**
+   * * Список категорий
+   */
   @Getter('catalog/categoriesList')
   categoriesList
 

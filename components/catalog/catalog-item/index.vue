@@ -1,4 +1,5 @@
 <template>
+  <!-- Компонент карточки товара  -->
   <div class="element">
     <div>
       <n-link to="/">
@@ -11,7 +12,7 @@
       </n-link>
     </div>
     <div class="element__article">
-      Артикул: {{ model.pSlug }}
+      Артикул: {{ productCode }}
     </div>
     <div class="element__name">
       <n-link to="/">
@@ -37,8 +38,25 @@ import { Vue, Component, Prop } from 'nuxt-property-decorator'
 
 @Component
 export default class CatalogItem extends Vue {
+  /**
+   * * Информация о товаре
+   * {
+   * "id": 1,
+   * "pName": "Lily trotter",
+   * "pSlug": "21051c12-c720-4418-ad76-d4166e66bee0",
+   * "pPrice": "1777.82",
+   * "image": "https://cataas.com/cat?width=350&height=273&i=1"
+   * }
+   */
   @Prop()
   model
+
+  /**
+   * * Обрезка строки артикула товара
+   */
+  get productCode () {
+    return this.model.pSlug.substr(0, 8)
+  }
 
   addToCart () {
     console.log(123)
