@@ -1,11 +1,20 @@
 <template>
   <div class="container">
+    <!-- Header -->
+    <the-header />
+
+    <!-- Основное содержание -->
     <nuxt />
   </div>
 </template>
 
 <script>
+import TheHeader from '@/components/common/header'
+
 export default {
+  components: {
+    TheHeader
+  },
   computed: {
     meta () {
       return [
@@ -47,7 +56,8 @@ export default {
   }
 
   .container {
-    width: $widthXL;
+    max-width: $widthXL;
+    width: 100%;
     margin: 0 auto;
     padding: 0 15px;
   }

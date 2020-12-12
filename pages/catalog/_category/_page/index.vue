@@ -66,6 +66,10 @@ export default class Category extends Vue {
 </script>
 
 <style lang="scss" scoped>
+  .catalog {
+    padding-bottom: 50px;
+  }
+
   .catalog__list {
     display: flex;
     justify-content: space-around;
@@ -74,6 +78,6 @@ export default class Category extends Vue {
   }
 
   .catalog__pagination {
-    margin-top: 20px;
+    margin-top: 80px;
   }
 </style>

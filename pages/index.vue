@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <h1>Main page</h1>
     <h1>Здесь будет слайдер</h1>
     <h1>Здесь будут хиты продаж</h1>
@@ -11,5 +11,8 @@
 
 </script>
 
-<style>
+<style lang="scss" scoped>
+  .main {
+    height: 200vh;
+  }
 </style>

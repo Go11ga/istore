@@ -112,7 +112,7 @@ export const actions = {
       /**
        * * Количество карточек товара на странице
        */
-      const productsPerPage = 8
+      const productsPerPage = 12
       /**
        * * Количество страниц пагинации
        */

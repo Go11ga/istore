@@ -1,6 +1,6 @@
 <template>
   <div class="main-catalog">
-    <h1 class="main-catalog-title">
+    <h1 class="main-catalog__title">
       Главная страница каталога
     </h1>
     <div class="main-catalog__wrapper">
@@ -58,7 +58,6 @@ export default class CatalogApp extends Vue {
   .main-catalog__item {
     display: flex;
     justify-content: space-between;
-    margin: 0 -10px;
     margin-bottom: 20px;
 
     &:last-child {
