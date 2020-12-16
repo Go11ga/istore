@@ -6,6 +6,7 @@
         v-for="product in products"
         :key="product.id"
         :model="product"
+        :category="currentCategory"
       />
     </div>
     <div class="catalog__pagination">

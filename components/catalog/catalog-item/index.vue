@@ -2,7 +2,7 @@
   <!-- Компонент карточки товара  -->
   <div class="element">
     <div>
-      <n-link to="/">
+      <n-link :to="link">
         <img
           class="element__img"
           :src="model.image"
@@ -15,7 +15,7 @@
       Артикул: {{ productCode }}
     </div>
     <div class="element__name">
-      <n-link to="/">
+      <n-link :to="link">
         {{ model.pName }}
       </n-link>
     </div>
@@ -23,20 +23,18 @@
       <div class="element__price">
         {{ model.pPrice }} руб.
       </div>
-      <button
-        class="button button--full"
-        @click.prevent="addToCart"
-      >
-        Добавить товар в корзину
-      </button>
+      <cart-button wide="true" />
     </div>
   </div>
 </template>
 
 <script>
 import { Vue, Component, Prop } from 'nuxt-property-decorator'
+import CartButton from '@/components/common/ui/cart-btn/index.vue'
 
-@Component
+@Component({
+  components: { CartButton }
+})
 export default class CatalogItem extends Vue {
   /**
    * * Информация о товаре
@@ -52,10 +50,39 @@ export default class CatalogItem extends Vue {
   model
 
   /**
+   * * Текущая категория
+   * {
+   * cDesc: "Описание"
+   * cMetaDescription: "Мета описание"
+   * cName: "Ювелирные изделия"
+   * cSlug: "jewelery"
+   * cTitle: "Ювелирные изделия"
+   * id: 1
+   * products: Array(12)
+   * }
+   */
+  @Prop()
+  category
+
+  /**
    * * Обрезка строки артикула товара
    */
   get productCode () {
     return this.model.pSlug.substr(0, 8)
+  }
+
+  /**
+   * * Текущая категория
+   */
+  get currentCategory () {
+    return this.category.cSlug
+  }
+
+  /**
+   * * Ссылка с id товара
+   */
+  get link () {
+    return `/catalog/${this.currentCategory}/detail/${this.model.id}`
   }
 
   addToCart () {

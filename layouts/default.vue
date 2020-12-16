@@ -29,7 +29,6 @@ export default {
   },
 
   head () {
-    // todo исправить на свой домен
     const canonical = `https://mysite.com${this.$route.path
       .toLowerCase()
       .replace(/\/$/, '')}`
