@@ -6,9 +6,12 @@ export const mutations = {}
 
 export const actions = {
   /**
-   * * Получение списка категорий при инициализации Vue
+   * * Инициализации Vue
    */
   async nuxtServerInit (ctx) {
+    /**
+     * * Получаем список категорий
+     */
     await ctx.dispatch('catalog/getCategoriesList')
   }
 }

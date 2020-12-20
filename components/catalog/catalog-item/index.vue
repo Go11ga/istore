@@ -5,14 +5,14 @@
       <n-link :to="link">
         <img
           class="element__img"
-          :src="model.image"
-          :alt="model.cTitle"
-          :title="model.cTitle"
+          :src="model.pImg"
+          :alt="model.pTitle"
+          :title="model.pTitle"
         />
       </n-link>
     </div>
     <div class="element__article">
-      Артикул: {{ productCode }}
+      Артикул: {{ model.pSlug }}
     </div>
     <div class="element__name">
       <n-link :to="link">
@@ -39,54 +39,30 @@ export default class CatalogItem extends Vue {
   /**
    * * Информация о товаре
    * {
-   * "id": 1,
-   * "pName": "Lily trotter",
-   * "pSlug": "21051c12-c720-4418-ad76-d4166e66bee0",
-   * "pPrice": "1777.82",
-   * "image": "https://cataas.com/cat?width=350&height=273&i=1"
+   * "id": 50,
+   * "pTitle": "Nettie",
+   * "pSlug": 2893135,
+   * "pPrice": 7883,
+   * "pDesc": "Labore id laboris officia est commodo amet. Ipsum excepteur ipsum anim in proident amet exercitation excepteur excepteur excepteur laboris ipsum laboris. Duis cupidatat proident amet voluptate ullamco nulla ex reprehenderit nulla culpa commodo ex. Duis voluptate qui ad proident voluptate reprehenderit mollit nulla cillum ex qui enim eu.\r\n",
+   * "pCategory": "ring",
+   * "pMetaDescription": "Nettie",
+   * "pImg": "https://cataas.com/cat?width=350&height=273&i=50"
    * }
    */
   @Prop()
   model
 
   /**
-   * * Текущая категория
-   * {
-   * cDesc: "Описание"
-   * cMetaDescription: "Мета описание"
-   * cName: "Ювелирные изделия"
-   * cSlug: "jewelery"
-   * cTitle: "Ювелирные изделия"
-   * id: 1
-   * products: Array(12)
-   * }
+   * * Текущая категория - jewelery
    */
   @Prop()
   category
 
   /**
-   * * Обрезка строки артикула товара
-   */
-  get productCode () {
-    return this.model.pSlug.substr(0, 8)
-  }
-
-  /**
-   * * Текущая категория
-   */
-  get currentCategory () {
-    return this.category.cSlug
-  }
-
-  /**
    * * Ссылка с id товара
    */
   get link () {
-    return `/catalog/${this.currentCategory}/detail/${this.model.id}`
-  }
-
-  addToCart () {
-    console.log(123)
+    return `/catalog/${this.category}/detail/${this.model.id}`
   }
 }
 </script>

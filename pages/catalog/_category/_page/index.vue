@@ -1,9 +1,9 @@
 <template>
   <div class="catalog">
-    <h1>Категория: {{ currentCategory.cTitle }}</h1>
+    <h1>Категория: {{ category.cTitle }}</h1>
     <div class="catalog__list">
       <catalog-item
-        v-for="product in products"
+        v-for="product in productsChunk"
         :key="product.id"
         :model="product"
         :category="currentCategory"
@@ -11,16 +11,15 @@
     </div>
     <div class="catalog__pagination">
       <pagination
-        :current-page="currentPage"
-        :total-count="currentCategoryLength"
+        :current-page="PAGE_NUMBER"
+        :total-count="PAGINATION_LENGTH"
       />
     </div>
   </div>
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
-import { Getter } from 'vuex-class'
+import { Vue, Component, Getter } from 'nuxt-property-decorator'
 import CatalogItem from '@/components/catalog/catalog-item/index'
 import Pagination from '@/components/common/ui/pagination/index'
 
@@ -32,36 +31,46 @@ import Pagination from '@/components/common/ui/pagination/index'
 })
 export default class Category extends Vue {
   /**
-   * * Выбранная категория
-   */
-  @Getter('catalog/currentCategory')
-  currentCategory
-
-  /**
-   * * Длина массива продуктов в текущей категории
-   */
-  @Getter('catalog/currentCategoryLength')
-  currentCategoryLength
-
-  /**
-   * * Текущая страница пагинации
-   */
-  @Getter('catalog/currentPage')
-  currentPage
-
-  /**
    * * Массив товаров в текущей категории
    */
-  get products () {
-    return this.currentCategory.products
-  }
+  @Getter('products/productsChunk')
+  productsChunk
 
   /**
-   * * Получение категории с массивом товаров
+   * * Длина массива для пагинации
    */
+  @Getter('products/PAGINATION_LENGTH')
+  PAGINATION_LENGTH
+
+  /**
+   * * Номер страницы пагинации
+   */
+  @Getter('products/PAGE_NUMBER')
+  PAGE_NUMBER
+
+  /**
+   * * Текущая категория
+   */
+  @Getter('catalog/currentCategory')
+  category
+
+  /**
+   * * Название текущей категории, поле cCateg
+   */
+  get currentCategory () {
+    return this.category.cCateg
+  }
+
   async asyncData (ctx) {
     const params = ctx.route.params
-    await ctx.store.dispatch('catalog/getCurrentCategory', params)
+    /**
+     * * Получаем товары для рендринга
+     */
+    await ctx.store.dispatch('products/getProductsAll', params)
+    /**
+     * * Получаем текущую категорию
+     */
+    ctx.store.dispatch('catalog/getCurrentCategory', params)
   }
 }
 </script>

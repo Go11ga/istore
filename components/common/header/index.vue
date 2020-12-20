@@ -10,7 +10,6 @@
         Главная
       </n-link>
       <n-link
-        exact
         class="nav__item"
         active-class="nav__active"
         to="/catalog"

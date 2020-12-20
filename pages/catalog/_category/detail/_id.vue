@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { Vue, Component } from 'nuxt-property-decorator'
+import { Vue, Component, Getter } from 'nuxt-property-decorator'
 import ProductDetail from '@/components/product/index'
 
 @Component({
@@ -15,12 +15,17 @@ import ProductDetail from '@/components/product/index'
 })
 export default class ProductDeatail extends Vue {
   /**
+   * * Выбранный товар
+   */
+  @Getter('products/product')
+  product
+
+  /**
    * * Получить товар по id
    */
   async asyncData (ctx) {
     const id = parseInt(ctx.route.params.id)
-    const product = await ctx.store.dispatch('products/getProductById', id)
-    return { product }
+    await ctx.store.dispatch('products/getProductById', id)
   }
 }
 </script>

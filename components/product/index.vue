@@ -3,17 +3,17 @@
     <div class="product__item">
       <img
         class="product__img"
-        :src="`https://cataas.com/cat?width=350&height=273&i=${model.id}`"
-        :alt="model.cTitle"
-        :title="model.cTitle"
+        :src="model.pImg"
+        :alt="model.pTitle"
+        :title="model.pTitle"
       />
     </div>
     <div class="product__item product__item--content">
       <h2 class="product__header">
-        {{ model.pName }}
+        {{ model.pTitle }}
       </h2>
       <p class="product__code">
-        Артикул: {{ productCode }}
+        Артикул: {{ model.pSlug }}
       </p>
       <h4 class="product__description">
         Описание:
@@ -39,15 +39,21 @@ import CartButton from '@/components/common/ui/cart-btn/index.vue'
   }
 })
 export default class ProductDetail extends Vue {
+  /**
+   * * Выбранный товар
+   * {
+   * "id": 50,
+   * "pTitle": "Nettie",
+   * "pSlug": 2893135,
+   * "pPrice": 7883,
+   * "pDesc": "Labore id laboris officia est commodo amet. Ipsum excepteur ipsum anim in proident amet exercitation excepteur excepteur excepteur laboris ipsum laboris. Duis cupidatat proident amet voluptate ullamco nulla ex reprehenderit nulla culpa commodo ex. Duis voluptate qui ad proident voluptate reprehenderit mollit nulla cillum ex qui enim eu.\r\n",
+   * "pCategory": "ring",
+   * "pMetaDescription": "Nettie",
+   * "pImg": "https://cataas.com/cat?width=350&height=273&i=50"
+   * }
+   */
   @Prop()
   model
-
-  /**
-   * * Обрезка строки артикула товара
-   */
-  get productCode () {
-    return this.model.pSlug.substr(0, 8)
-  }
 }
 </script>
 
@@ -55,8 +61,9 @@ export default class ProductDetail extends Vue {
   .product {
     display: flex;
     justify-content: flex-start;
+    padding: 10px;
 
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   }
 
   .product__item {
@@ -64,7 +71,7 @@ export default class ProductDetail extends Vue {
 
     &--content {
       width: 70%;
-      padding: 0 15px 30px;
+      padding: 0 20px 20px;
     }
   }
 
@@ -91,7 +98,7 @@ export default class ProductDetail extends Vue {
 
   .product__text {
     text-align: justify;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
   }
 
   .product__price {

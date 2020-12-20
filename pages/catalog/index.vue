@@ -1,7 +1,7 @@
 <template>
   <div class="main-catalog">
     <h1 class="main-catalog__title">
-      Главная страница каталога
+      Каталог
     </h1>
     <div class="main-catalog__wrapper">
       <div

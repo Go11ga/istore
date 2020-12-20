@@ -32,6 +32,12 @@ export default class CatalogItem extends Vue {
 
   /**
    * * Информация по категории
+   * { "id": 1,
+   * "cTitle": "Ювелирные изделия",
+   * "cCateg": "jewelery",
+   * "cMetaDescription": "Мета описание",
+   * "cDesc": "Описание",
+   * "products": [] }
    */
   @Prop()
   categoryItem
@@ -46,7 +52,7 @@ export default class CatalogItem extends Vue {
    * * Роут для перехода к конкретной категории
    */
   get link () {
-    return `/catalog/${this.categoryItem.cSlug}/1`
+    return `/catalog/${this.categoryItem.cCateg}/1`
   }
 }
 </script>
