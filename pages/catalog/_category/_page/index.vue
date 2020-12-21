@@ -1,19 +1,22 @@
 <template>
-  <div class="catalog">
-    <h1>Категория: {{ category.cTitle }}</h1>
-    <div class="catalog__list">
-      <catalog-item
-        v-for="product in productsChunk"
-        :key="product.id"
-        :model="product"
-        :category="currentCategory"
-      />
-    </div>
-    <div class="catalog__pagination">
-      <pagination
-        :current-page="PAGE_NUMBER"
-        :total-count="PAGINATION_LENGTH"
-      />
+  <div>
+    <bread-crumbs :pages="breadcumbs" />
+    <div class="catalog">
+      <h1>Категория: {{ category.cTitle }}</h1>
+      <div class="catalog__list">
+        <catalog-item
+          v-for="product in productsChunk"
+          :key="product.id"
+          :model="product"
+          :category="currentCategory"
+        />
+      </div>
+      <div class="catalog__pagination">
+        <pagination
+          :current-page="PAGE_NUMBER"
+          :total-count="PAGINATION_LENGTH"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -22,11 +25,13 @@
 import { Vue, Component, Getter } from 'nuxt-property-decorator'
 import CatalogItem from '@/components/catalog/catalog-item/index'
 import Pagination from '@/components/common/ui/pagination/index'
+import BreadCrumbs from '@/components/common/ui/breadcrumbs/index'
 
 @Component({
   components: {
     CatalogItem,
-    Pagination
+    Pagination,
+    BreadCrumbs
   }
 })
 export default class Category extends Vue {
@@ -71,6 +76,20 @@ export default class Category extends Vue {
      * * Получаем текущую категорию
      */
     ctx.store.dispatch('catalog/getCurrentCategory', params)
+  }
+
+  /**
+   * * Хлебные крошки для подкатегорий
+   */
+  get breadcumbs () {
+    const category = this.$route.params.category
+
+    const crumbs = [
+      { title: 'Каталог', href: '/catalog' },
+      { title: this.category.cTitle, href: `/catalog/${category}/1` }
+    ]
+
+    return crumbs
   }
 }
 </script>

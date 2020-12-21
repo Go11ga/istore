@@ -59,6 +59,7 @@ export default class ProductDetail extends Vue {
 
 <style lang="scss" scoped>
   .product {
+    margin-top: 30px;
     display: flex;
     justify-content: flex-start;
     padding: 10px;
