@@ -16,6 +16,13 @@
       >
         Каталог
       </n-link>
+      <n-link
+        class="nav__item"
+        active-class="nav__active"
+        to="/cart"
+      >
+        Корзина
+      </n-link>
     </nav>
     <div class="header__aux">
       <div class="header__item">
