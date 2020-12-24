@@ -9,10 +9,10 @@
         :key="index"
         class="main-catalog__item"
       >
-        <catalog-item
+        <catalog-menu-item
           v-for="category in categoryChunk"
           :key="category.id"
-          :category-item="category"
+          :model="category"
           :wide="index % 2 != 0"
           :background="index > categoryChunk.length/2"
         />
@@ -25,11 +25,11 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import { Getter } from 'vuex-class'
 import { mixChunck } from '@/utils/arrays'
-import CatalogItem from '@/components/catalog/catalog-menu-item/index'
+import CatalogMenuItem from '@/components/catalog/catalog-menu-item/index'
 
 @Component({
   components: {
-    CatalogItem
+    CatalogMenuItem
   }
 })
 export default class CatalogApp extends Vue {

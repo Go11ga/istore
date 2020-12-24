@@ -16,14 +16,15 @@
     </div>
     <div class="element__name">
       <n-link :to="link">
-        {{ model.pName }}
+        {{ model.pTitle }}
       </n-link>
     </div>
     <div class="element__overlay">
       <div class="element__price">
         {{ model.pPrice }} руб.
       </div>
-      <cart-button wide="true" />
+
+      <cart-button :id="model.id" />
     </div>
   </div>
 </template>
@@ -54,6 +55,7 @@ export default class CatalogItem extends Vue {
 
   /**
    * * Текущая категория - jewelery
+   * 'jewelery'
    */
   @Prop()
   category

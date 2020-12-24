@@ -1,58 +1,87 @@
 <template>
-  <div>
+  <transition name="fade" mode="out-in">
     <button
+      v-if="!isInCart"
+      :key="1"
       class="button"
-      :class="{'button--full': wide}"
-      @click.prevent="addToCart"
+      @click.prevent="onAddToCart"
     >
       Добавить в корзину
     </button>
-  </div>
+    <button
+      v-else
+      class="button button--remove"
+      @click.prevent="onRemoveFromCart"
+    >
+      Удалить из корзины
+    </button>
+  </transition>
 </template>
 
 <script>
-import { Vue, Component, Prop } from 'nuxt-property-decorator'
+import { Vue, Component, Prop, Getter, Action } from 'nuxt-property-decorator'
 
 @Component()
 export default class CartBtn extends Vue {
+  /**
+   * * id продукта
+   * 1
+   */
   @Prop()
-  wide
+  id
 
-  addToCart () {
-    console.log(123)
+  @Action('cart/addToCart')
+  addToCart
+
+  /**
+   * * Добавить продукт в корзину
+   */
+  onAddToCart () {
+    this.addToCart(this.id)
+  }
+
+  @Action('cart/removeFromCart')
+  removeFromCart
+
+  /**
+   * * Удалить продукт из корзины
+   */
+  onRemoveFromCart () {
+    this.removeFromCart(this.id)
+  }
+
+  /**
+   * * Продукт в корзине
+   * boolean
+   */
+  @Getter('cart/inCart')
+  inCart
+
+  /**
+   * * Продукт в корзине для id
+   */
+  get isInCart () {
+    return this.inCart(this.id)
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 42px;
-    padding: 0 20px;
+  .fade-enter-active{
+    animation: fadeIn 0.5s;
+  }
 
-    font-weight: normal;
-    font-size: 16px;
-    color: $white;
-    text-decoration: none;
+  .fade-leave-active{
+    animation: fadeOut 0.5s;
+  }
 
-    box-shadow: 0 4px 4px rgba(216, 179, 152, 0.15);
-    border-radius: 4px;
-    border: none;
-    background: $red;
-    outline: 0;
+  @keyframes fadeIn{
+    from { opacity: 0; transform: translate(-10vw) }
+    to { opacity: 1; transform: translate(0) }
+  }
 
-    cursor: pointer;
-    transition: all .15s linear;
-
-    &:hover {
-      background-color: darken($red, 10%);
-      box-shadow: 0 5px 5px rgba(92, 92, 92, 0.2);
-    }
-
-    &--full {
-      width: 100%;
-    }
+  @keyframes fadeOut{
+    from { opacity: 1; transform: translate(0) }
+    to { opacity: 0; transform: translate(10vw) }
   }
 </style>

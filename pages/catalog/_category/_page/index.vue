@@ -2,22 +2,22 @@
   <div>
     <bread-crumbs :pages="breadcumbs" />
     <div class="catalog">
-      <h1>Категория: {{ category.cTitle }}</h1>
+      <h1>Категория: {{ currentCategoryRender.cTitle }}</h1>
       <div class="catalog__list">
         <catalog-item
-          v-for="product in productsChunk"
+          v-for="product in productsRender"
           :key="product.id"
           :model="product"
-          :category="currentCategory"
+          :category="currentCategoryRender.cCateg"
         />
       </div>
       <div class="catalog__pagination">
         <pagination
-          :current-page="PAGE_NUMBER"
-          :total-count="PAGINATION_LENGTH"
+          :current-page="pageNumber"
+          :total-count="paginationLengthRender"
         />
       </div>
-    </div>
+    </div><!-- /.catalog -->
   </div>
 </template>
 
@@ -36,46 +36,64 @@ import BreadCrumbs from '@/components/common/ui/breadcrumbs/index'
 })
 export default class Category extends Vue {
   /**
-   * * Массив товаров в текущей категории
+   * * Параметры роутера
+   * { "category": "jewelery", "page": "1" }
+   */
+  params = this.$route.params
+
+  /**
+   * * Массив товаров для рендеринга
    */
   @Getter('products/productsChunk')
   productsChunk
 
   /**
-   * * Длина массива для пагинации
+   * * Массив товаров для рендеринга с параметрами
+   * @param {*} params - параметры роутера { category: 'jewelery', page: '1' }
    */
-  @Getter('products/PAGINATION_LENGTH')
-  PAGINATION_LENGTH
-
-  /**
-   * * Номер страницы пагинации
-   */
-  @Getter('products/PAGE_NUMBER')
-  PAGE_NUMBER
-
-  /**
-   * * Текущая категория
-   */
-  @Getter('catalog/currentCategory')
-  category
-
-  /**
-   * * Название текущей категории, поле cCateg
-   */
-  get currentCategory () {
-    return this.category.cCateg
+  get productsRender () {
+    return this.productsChunk(this.params)
   }
 
-  async asyncData (ctx) {
-    const params = ctx.route.params
-    /**
-     * * Получаем товары для рендринга
-     */
-    await ctx.store.dispatch('products/getProductsAll', params)
-    /**
-     * * Получаем текущую категорию
-     */
-    ctx.store.dispatch('catalog/getCurrentCategory', params)
+  /**
+   * * Размер пагинации
+   */
+  @Getter('products/paginationLength')
+  paginationLength
+
+  /**
+   * * Размер пагинации для выбранной категории
+   */
+  get paginationLengthRender () {
+    return this.paginationLength(this.params.category)
+  }
+
+  /**
+   * * Номер текущей страницы пагинации
+   */
+  get pageNumber () {
+    return this.params.page
+  }
+
+  /**
+   * * Выбранная категория
+   */
+  @Getter('catalog/currentCategory')
+  currentCategory
+
+  /**
+   * * Выбранная категория с параметром
+   * {
+   * "id": 1,
+   * "cTitle": "Ювелирные изделия",
+   * "cCateg": "jewelery",
+   * "cMetaDescription": "Мета описание",
+   * "cDesc": "Описание",
+   * "products": []
+   * }
+   */
+  get currentCategoryRender () {
+    return this.currentCategory(this.params.category)
   }
 
   /**
@@ -86,7 +104,7 @@ export default class Category extends Vue {
 
     const crumbs = [
       { title: 'Каталог', href: '/catalog' },
-      { title: this.category.cTitle, href: `/catalog/${category}/1` }
+      { title: this.currentCategoryRender.cTitle, href: `/catalog/${category}/1` }
     ]
 
     return crumbs

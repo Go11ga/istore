@@ -1,40 +1,50 @@
 <template>
   <div class="header">
-    <nav class="nav">
+    <div class="header__item">
+      <nav class="nav">
+        <n-link
+          exact
+          class="nav__item"
+          active-class="nav__active"
+          to="/"
+        >
+          Главная
+        </n-link>
+        <n-link
+          class="nav__item"
+          active-class="nav__active"
+          to="/catalog"
+        >
+          Каталог
+        </n-link>
+      </nav>
+    </div><!-- /.header__item -->
+    <div class="header__item header__item--icon">
       <n-link
-        exact
-        class="nav__item"
-        active-class="nav__active"
-        to="/"
-      >
-        Главная
-      </n-link>
-      <n-link
-        class="nav__item"
-        active-class="nav__active"
-        to="/catalog"
-      >
-        Каталог
-      </n-link>
-      <n-link
-        class="nav__item"
-        active-class="nav__active"
+        active-class="header__link"
         to="/cart"
       >
-        Корзина
+        <svg class="header__icon">
+          <use xlink:href="#cart" />
+        </svg>
       </n-link>
-    </nav>
-    <div class="header__aux">
-      <div class="header__item">
-        cart
-      </div>
-    </div>
+      <span
+        v-if="qty !== 0"
+        class="header__cnt"
+      >
+        {{ qty }}
+      </span>
+    </div><!-- /.header__item -->
   </div>
 </template>
 
 <script>
-export default {
+import { Component, Vue, Getter } from 'nuxt-property-decorator'
 
+@Component()
+export default class Header extends Vue {
+  @Getter('cart/qty')
+  qty
 }
 </script>
 
@@ -44,6 +54,20 @@ export default {
     justify-content: space-between;
     align-items: center;
     height: 80px;
+  }
+
+  .header__item {
+    &--icon {
+      width: 50px;
+      height: 30px;
+      position: relative;
+
+      &:hover {
+        .header__icon {
+          fill: $red;
+        }
+      }
+    }
   }
 
   .nav {
@@ -103,5 +127,37 @@ export default {
       width: 100%;
       @include after;
     }
+  }
+
+  .header__link {
+    .header__icon {
+      fill: $red;
+    }
+  }
+
+  .header__icon {
+    width: 27px;
+    height: 27px;
+    fill: $black;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+
+    transform: translate(-50%, -50%);
+
+    transition: fill .15s linear;
+  }
+
+  .header__cnt {
+    position: absolute;
+    top: 0;
+    right: 3px;
+    z-index: 3;
+
+    font-size: 12px;
+    color: red;
+    font-weight: 700;
   }
 </style>

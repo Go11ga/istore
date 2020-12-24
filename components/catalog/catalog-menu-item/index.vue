@@ -10,7 +10,7 @@
       :class="{'category__link--bgc' : background}"
     >
       <span class="category__title">
-        {{ categoryItem.cTitle }}
+        {{ model.cTitle }}
       </span>
       <span class="category__bottom">
         Выбрать изделие
@@ -26,6 +26,7 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator'
 export default class CatalogItem extends Vue {
   /**
    * * Ширина карточки категории в зависимости от чанка
+   * boolean
    */
   @Prop()
   wide
@@ -40,10 +41,11 @@ export default class CatalogItem extends Vue {
    * "products": [] }
    */
   @Prop()
-  categoryItem
+  model
 
   /**
    * * Фон карточки в зависимости от расположения
+   * boolean
    */
   @Prop()
   background
@@ -52,7 +54,7 @@ export default class CatalogItem extends Vue {
    * * Роут для перехода к конкретной категории
    */
   get link () {
-    return `/catalog/${this.categoryItem.cCateg}/1`
+    return `/catalog/${this.model.cCateg}/1`
   }
 }
 </script>

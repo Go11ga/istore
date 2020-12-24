@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+    <!-- Иконки -->
+    <symbols />
+
     <!-- Header -->
     <the-header />
 
@@ -10,10 +13,12 @@
 
 <script>
 import TheHeader from '@/components/common/header'
+import Symbols from '@/components/common/symbols/index'
 
 export default {
   components: {
-    TheHeader
+    TheHeader,
+    Symbols
   },
   computed: {
     meta () {
