@@ -8,17 +8,22 @@
 
     <!-- Основное содержание -->
     <nuxt />
+
+    <!-- Footer -->
+    <the-footer />
   </div>
 </template>
 
 <script>
 import TheHeader from '@/components/common/header'
 import Symbols from '@/components/common/symbols/index'
+import TheFooter from '@/components/common/footer'
 
 export default {
   components: {
     TheHeader,
-    Symbols
+    Symbols,
+    TheFooter
   },
   computed: {
     meta () {
