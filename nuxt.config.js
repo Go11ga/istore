@@ -35,11 +35,12 @@ export default {
   axios: {},
 
   plugins: [
-    '@/plugins/globals'
+    '@/plugins/globals',
+    '~/plugins/vue-agile.js'
   ],
 
   build: {
-    transpile: [/^element-ui/]
+    transpile: [/^element-ui/, 'vue-agile']
   },
 
   env: {

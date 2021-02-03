@@ -1,17 +1,25 @@
 <template>
   <div class="main">
-    <h1>Main page</h1>
-    <h1>Здесь будет слайдер</h1>
-    <h1>Здесь будут хиты продаж</h1>
-    <h1>Здесь будет карта</h1>
+    <app-slider />
   </div>
 </template>
 
 <script>
-export default {
-  head: {
-    title: `Главная | ${process.env.appName}`
+import { Component, Vue } from 'nuxt-property-decorator'
+import appSlider from '@/components/slider'
+
+@Component({
+  components: {
+    appSlider
+  },
+  head () {
+    return {
+      title: `Главная | ${process.env.appName}`
+    }
   }
+})
+export default class Main extends Vue {
+
 }
 
 </script>
