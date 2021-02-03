@@ -41,6 +41,10 @@ export default class Footer extends Vue {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+
+    @media (max-width: $point_sm) {
+      margin-top: 10px;
+    }
   }
 
   .footer__item {
@@ -55,18 +59,26 @@ export default class Footer extends Vue {
       width: 100%;
       height: 30px;
 
-      background-color: #F8F9FB;
-      color: #313A47;
+      background-color: $light_blue;
+      color: $black;
       text-align: center;
       line-height: 30px;
       font-size: 18px;
+    }
+
+    @media (max-width: $point_md) {
+      width: 100%;
     }
   }
 
   .footer__text {
     margin-top: 5px;
-    color: #313A47;
+    color: $black;
     font-size: 14px;
+
+    @media (max-width: $point_sm) {
+      text-align: justify;
+    }
   }
 
   .footer__wrap {
@@ -78,6 +90,7 @@ export default class Footer extends Vue {
   .footer__link {
     width: 48%;
     height: 30px;
+    padding: 2px;
 
     display: flex;
     justify-content: flex-start;
@@ -85,13 +98,22 @@ export default class Footer extends Vue {
 
     cursor: pointer;
     text-decoration: none;
-    color: #313A47;
-    font-size: 16px;
+    color: $black;
+    font-size: 14px;
 
     transition: all .15s linear;
 
     &:hover {
-      background-color: #FEF7EA;
+      background-color: $hover_gold;
+    }
+
+    @media (max-width: $point_xl) {
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: $point_md) {
+      justify-content: center;
+      text-align: center;
     }
   }
 </style>

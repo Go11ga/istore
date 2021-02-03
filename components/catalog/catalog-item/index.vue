@@ -126,7 +126,7 @@ export default class CatalogItem extends Vue {
     top: 100%;
     z-index: 5;
 
-    background-color: #fff;
+    background-color: $white;
     display: none;
   }
 

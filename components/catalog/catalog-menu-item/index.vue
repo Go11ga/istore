@@ -69,6 +69,15 @@ export default class CatalogItem extends Vue {
     &--wide {
       width: 50%;
     }
+
+    @media (max-width: $point_md) {
+      width: 45%;
+      margin: 0 10px 10px;
+    }
+
+    @media (max-width: $point_sm) {
+      width: 100%;
+    }
   }
 
   .category__link {
@@ -87,6 +96,10 @@ export default class CatalogItem extends Vue {
 
     &:hover {
       background-color: $hover_gold;
+    }
+
+    @media (max-width: $point_sm) {
+      height: 120px;
     }
   }
 

@@ -1,51 +1,53 @@
 <template>
-  <div v-if="qty !==0">
-    <table class="cart__table">
-      <thead>
-        <tr>
-          <th>Изображение</th>
-          <th>Наименование</th>
-          <th>Цена за ед., руб.</th>
-          <th>Изменить</th>
-          <th>Итого</th>
-          <th>Удалить</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in productsDetailed" :key="item.id">
-          <td>
-            <n-link :to="`/catalog/${item.pCategory}/detail/${item.id}`">
-              <img
-                class="cart__img"
-                :src="item.pImg"
-                :alt="item.pTitle"
-              />
-            </n-link>
-          </td>
-          <td>
-            {{ item.pTitle }}
-          </td>
-          <td>
-            {{ item.pPrice }}
-          </td>
-          <td>
-            <min-max :model="item" />
-          </td>
-          <td>
-            {{ cntInCartByIdTotal(parseInt(item.id)) * parseInt(item.pPrice) }}
-          </td>
-          <td>
-            <button
-              class="button button--remove"
-              :disabled="inProcess"
-              @click.prevent="onRemoveFromCart(item.id)"
-            >
-              Удалить
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div v-if="qty !==0" class="cart">
+    <div class="cart__inner">
+      <table class="cart__table">
+        <thead>
+          <tr>
+            <th>Изображение</th>
+            <th>Наименование</th>
+            <th>Цена за ед., руб.</th>
+            <th>Изменить</th>
+            <th>Итого</th>
+            <th>Удалить</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in productsDetailed" :key="item.id">
+            <td>
+              <n-link :to="`/catalog/${item.pCategory}/detail/${item.id}`">
+                <img
+                  class="cart__img"
+                  :src="item.pImg"
+                  :alt="item.pTitle"
+                />
+              </n-link>
+            </td>
+            <td>
+              {{ item.pTitle }}
+            </td>
+            <td>
+              {{ item.pPrice }}
+            </td>
+            <td>
+              <min-max :model="item" />
+            </td>
+            <td>
+              {{ cntInCartByIdTotal(parseInt(item.id)) * parseInt(item.pPrice) }}
+            </td>
+            <td>
+              <button
+                class="button button--remove"
+                :disabled="inProcess"
+                @click.prevent="onRemoveFromCart(item.id)"
+              >
+                Удалить
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <div class="cart__total">
       Всего: {{ total }} руб.
     </div>
@@ -190,10 +192,30 @@ export default class Cart extends Vue {
 </script>
 
 <style lang="scss" scoped>
+  .cart {
+    margin-bottom: 300px;
+
+    @media (max-width: $point_md) {
+      margin-bottom: 100px;
+    }
+
+     @media (max-width: $point_sm) {
+      margin-bottom: 30px;
+    }
+  }
+
+  .cart__inner {
+    display: flex;
+    justify-content: center;
+  }
+
   .cart__table {
-    margin: 0 auto;
     border: 1px solid $dark_grey;
     border-collapse: collapse;
+
+    @media (max-width: $point_md) {
+      font-size: 12px;
+    }
 
     th, td {
       border: 1px solid $dark_grey;
@@ -201,11 +223,31 @@ export default class Cart extends Vue {
 
     th {
       padding: 5px 40px;
+
+      &:first-child {
+        @media (max-width: $point_md) {
+          display: none;
+        }
+      }
+
+      @media (max-width: $point_md) {
+        display: none;
+      }
     }
 
     td {
       padding: 5px 40px;
       text-align: center;
+
+      &:first-child {
+        @media (max-width: $point_md) {
+          display: none;
+        }
+      }
+
+      @media (max-width: $point_md) {
+        padding: 5px 2px;
+      }
     }
   }
 
@@ -220,10 +262,19 @@ export default class Cart extends Vue {
     font-size: 24px;
     color: $black;
     font-weight: 700;
+
+    @media (max-width: $point_md) {
+      font-size: 14px;
+      text-align: center;
+    }
   }
 
   .cart__btn {
     width: 200px;
+
+    @media (max-width: $point_md) {
+      margin: 0 auto;
+    }
   }
 
   .cart__empty {

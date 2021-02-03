@@ -61,7 +61,7 @@ export default class Slider extends Vue {
    */
   constrols = {
     currentSlideIndex: 0,
-    autoplay: true,
+    autoplay: false,
     options: {
       responsive: [
         {
@@ -71,7 +71,7 @@ export default class Slider extends Vue {
           }
         },
         {
-          breakpoint: 600,
+          breakpoint: 700,
           settings: {
             slidesToShow: 2
           }
@@ -85,7 +85,7 @@ export default class Slider extends Vue {
         {
           breakpoint: 1200,
           settings: {
-            slidesToShow: 3
+            slidesToShow: 4
           }
         },
         {
@@ -152,6 +152,10 @@ export default class Slider extends Vue {
 <style lang="scss" scoped>
   .slider {
     margin-top: 50px;
+
+    @media (max-width: $point_sm) {
+      margin-top: 20px;
+    }
   }
 
   .slider__container {
@@ -173,13 +177,13 @@ export default class Slider extends Vue {
     height: 200px;
     margin-bottom: 20px;
     padding: 25px 35px;
-    background: #F8F9FB 100% 0 no-repeat;
-    color: #313A47;
+    background: $light_blue 100% 0 no-repeat;
+    color: $black;
     text-decoration: none;
     transition: background-color .15s;
 
     &:hover {
-      background-color: #FEF7EA;
+      background-color: $hover_gold;
     }
   }
 
@@ -212,7 +216,7 @@ export default class Slider extends Vue {
     transform: translate(0, -50%);
 
     &:hover {
-      background-color: darken(#fff, 10%);
+      background-color: darken($white, 10%);
     }
 
     &--prev {
@@ -248,5 +252,15 @@ export default class Slider extends Vue {
     &--active {
       background-color: #CBCBCB;
     }
+  }
+
+  .agile {
+    width: 100%;
+    position: relative;
+  }
+
+  .agile__slide {
+    display: flex;
+    justify-content: center;
   }
 </style>

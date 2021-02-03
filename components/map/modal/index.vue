@@ -29,13 +29,17 @@ export default {}
     width: 350px;
     padding: 10px;
 
-    background-color: #fff;
+    background-color: $white;
     box-shadow: 0 10px 15px rgba(125, 125, 125, 0.6);
 
     position: absolute;
     top: 125px;
     left: 25px;
     z-index: 1;
+
+    @media (max-width: $point_sm) {
+      width: 200px;
+    }
   }
 
   .modal__btn {
@@ -46,7 +50,7 @@ export default {}
 
     font-weight: 700;
     font-size: 14px;
-    color: #313A47;
+    color: $black;
 
     cursor: pointer;
     transition: .15s;
@@ -57,7 +61,7 @@ export default {}
     z-index: 2;
 
     &:hover {
-      color: lighten( #313A47, 50%);
+      color: lighten($black, 50%);
     }
   }
 

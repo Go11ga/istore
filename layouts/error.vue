@@ -17,17 +17,18 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    margin-bottom: 300px;
   }
 
   .error__content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 4rem;
+    padding-top: 100px;
   }
 
   .error__title {
-    color: rgb(145, 6, 6);
-    margin-bottom: 1rem;
+    color: $red;
+    margin-bottom: 20px;
   }
 </style>

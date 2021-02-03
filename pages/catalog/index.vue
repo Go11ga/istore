@@ -66,6 +66,12 @@ export default class CatalogApp extends Vue {
 </script>
 
 <style lang="scss" scoped>
+  .main-catalog__title {
+    @media (max-width: $point_sm) {
+      text-align: center;
+    }
+  }
+
   .main-catalog__wrapper {
     display: flex;
     flex-direction: column;
@@ -78,6 +84,12 @@ export default class CatalogApp extends Vue {
     margin-bottom: 20px;
 
     &:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: $point_md) {
+      flex-wrap: wrap;
+      justify-content: space-around;
       margin-bottom: 0;
     }
   }

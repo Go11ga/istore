@@ -157,7 +157,7 @@ export default class Header extends Vue {
     z-index: 3;
 
     font-size: 12px;
-    color: red;
+    color: $red;
     font-weight: 700;
   }
 </style>

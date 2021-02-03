@@ -3,7 +3,9 @@
     <bread-crumbs :pages="breadcumbs" />
 
     <div class="catalog">
-      <h1>Категория: {{ currentCategoryRender.cTitle }}</h1>
+      <h1 class="catalog__title">
+        Категория: {{ currentCategoryRender.cTitle }}
+      </h1>
 
       <div class="catalog__list">
         <catalog-item
@@ -135,6 +137,13 @@ export default class Category extends Vue {
 <style lang="scss" scoped>
   .catalog {
     padding-bottom: 50px;
+  }
+
+  .catalog__title {
+    @media (max-width: $point_md) {
+      font-size: 24px;
+      text-align: center;
+    }
   }
 
   .catalog__list {

@@ -25,6 +25,11 @@
     box-shadow: 0 5px 5px rgba(92, 92, 92, 0.2);
   }
 
+  @media (max-width: $point_sm) {
+    font-size: 12px;
+    padding: 0 5px;
+  }
+
   &--remove {
     background: $dark_grey;
 

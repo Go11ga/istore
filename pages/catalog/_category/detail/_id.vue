@@ -99,19 +99,34 @@ export default class ProductDeatail extends Vue {
 <style lang="scss" scoped>
   .product {
     margin-top: 30px;
+    margin-bottom: 200px;
     display: flex;
     justify-content: flex-start;
     padding: 10px;
 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+    @media (max-width: $point_md) {
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 50px;
+    }
   }
 
   .product__item {
     width: 30%;
 
+    @media (max-width: $point_md) {
+      width: 100%;
+    }
+
     &--content {
       width: 70%;
       padding: 0 20px 20px;
+
+      @media (max-width: $point_md) {
+        width: 100%;
+      }
     }
   }
 
@@ -119,6 +134,10 @@ export default class ProductDeatail extends Vue {
     display: block;
     max-width: 100%;
     height: auto;
+
+    @media (max-width: $point_md) {
+      margin: 0 auto 20px;
+    }
   }
 
   .product__header {
@@ -148,5 +167,9 @@ export default class ProductDeatail extends Vue {
 
   .product-btn__container {
     width: 30%;
+
+    @media (max-width: $point_md) {
+      width: 100%;
+    }
   }
 </style>

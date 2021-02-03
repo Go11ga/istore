@@ -57,6 +57,10 @@ export default class Map extends Vue {
     margin-top: 50px;
 
     position: relative;
+
+    @media (max-width: $point_sm) {
+      margin-top: 20px;
+    }
   }
 
   .map__title {
@@ -65,5 +69,9 @@ export default class Map extends Vue {
 
   .map-ya {
     height: 600px;
+
+    @media (max-width: $point_sm) {
+      height: 400px;
+    }
   }
 </style>
