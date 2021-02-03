@@ -36,7 +36,8 @@ export default {
 
   plugins: [
     '@/plugins/globals',
-    '~/plugins/vue-agile.js'
+    '~/plugins/vue-agile.js',
+    '~/plugins/vue-yandex-maps'
   ],
 
   build: {

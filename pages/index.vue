@@ -1,16 +1,19 @@
 <template>
-  <div class="main">
+  <div>
     <app-slider />
+    <app-map />
   </div>
 </template>
 
 <script>
 import { Component, Vue } from 'nuxt-property-decorator'
 import appSlider from '@/components/slider'
+import appMap from '@/components/map'
 
 @Component({
   components: {
-    appSlider
+    appSlider,
+    appMap
   },
   head () {
     return {
@@ -25,7 +28,5 @@ export default class Main extends Vue {
 </script>
 
 <style lang="scss" scoped>
-  .main {
-    height: 200vh;
-  }
+
 </style>
