@@ -26,9 +26,8 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator'
 export default class CatalogItem extends Vue {
   /**
    * * Ширина карточки категории в зависимости от чанка
-   * boolean
    */
-  @Prop()
+  @Prop({ required: true, type: Boolean })
   wide
 
   /**
@@ -40,14 +39,13 @@ export default class CatalogItem extends Vue {
    * "cDesc": "Описание",
    * "products": [] }
    */
-  @Prop()
+  @Prop({ required: true, type: Object })
   model
 
   /**
    * * Фон карточки в зависимости от расположения
-   * boolean
    */
-  @Prop()
+  @Prop({ required: true, type: Boolean })
   background
 
   /**

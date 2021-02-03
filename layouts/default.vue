@@ -31,17 +31,6 @@ export default {
         { hid: 'description', name: 'description', content: 'Главная' }
       ]
     }
-  },
-
-  head () {
-    const canonical = `https://mysite.com${this.$route.path
-      .toLowerCase()
-      .replace(/\/$/, '')}`
-    return {
-      meta: Array.from(this.meta),
-      link: [{ rel: 'canonical', href: canonical }
-      ]
-    }
   }
 }
 </script>

@@ -50,14 +50,14 @@ export default class CatalogItem extends Vue {
    * "pImg": "https://cataas.com/cat?width=350&height=273&i=50"
    * }
    */
-  @Prop()
+  @Prop({ required: true, type: Object })
   model
 
   /**
    * * Текущая категория - jewelery
    * 'jewelery'
    */
-  @Prop()
+  @Prop({ required: true, type: String })
   category
 
   /**

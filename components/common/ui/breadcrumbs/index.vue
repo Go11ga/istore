@@ -28,7 +28,7 @@ import { Component, Vue, Prop } from 'nuxt-property-decorator'
 
 @Component
 export default class Breadcrumbs extends Vue {
-  @Prop()
+  @Prop({ required: true, type: Array })
   pages
 }
 </script>

@@ -43,32 +43,19 @@ import CartButton from '@/components/common/ui/cart-btn/index.vue'
   components: {
     BreadCrumbs,
     CartButton
+  },
+  head () {
+    return {
+      title: `${this.product.pTitle} | ${process.env.appName}`
+    }
   }
 })
 export default class ProductDeatail extends Vue {
   /**
    * * Получить один товар
-   * {
-   * "id": 1,
-   * "pTitle": "Boyle",
-   * "pSlug": 2684776,
-   * "pPrice": 7811,
-   * "pDesc": "Adipisicing tempor dolore do ex ipsum tempor ipsum aliquip aliquip do aute. Tempor qui labore sit aliqua irure. Irure nulla deserunt deserunt ut do occaecat. Consectetur pariatur pariatur est excepteur ad sit veniam adipisicing duis culpa consectetur officia.\r\n",
-   * "pCategory": "jewelery",
-   * "pMetaDescription": "Boyle",
-   * "pImg": "https://cataas.com/cat?width=350&height=273&i=1"
-   * }
    */
   @Getter('products/one')
   one
-
-  /**
-   * * Получить один товар с id
-   */
-  get product () {
-    const id = this.$route.params.id
-    return this.one(id)
-  }
 
   /**
    * * Текущая категория
@@ -77,18 +64,20 @@ export default class ProductDeatail extends Vue {
   currentCategory
 
   /**
+   * * Получить один товар с id
+   */
+  get product () {
+    const id = this.$route.params.id
+
+    return this.one(id)
+  }
+
+  /**
    * * Текущая категория c параметром
-   * {
-   * "id": 1,
-   * "cTitle": "Ювелирные изделия",
-   * "cCateg": "jewelery",
-   * "cMetaDescription": "Мета описание",
-   * "cDesc": "Описание",
-   * "products": []
-   * }
    */
   get currentCategoryRender () {
     const category = this.$route.params.category
+
     return this.currentCategory(category)
   }
 

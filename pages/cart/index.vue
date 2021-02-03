@@ -35,7 +35,11 @@
             {{ cntInCartByIdTotal(parseInt(item.id)) * parseInt(item.pPrice) }}
           </td>
           <td>
-            <button class="button button--remove" @click.prevent="onRemoveFromCart(item.id)">
+            <button
+              class="button button--remove"
+              :disabled="inProcess"
+              @click.prevent="onRemoveFromCart(item.id)"
+            >
               Удалить
             </button>
           </td>
@@ -46,7 +50,7 @@
       Всего: {{ total }} руб.
     </div>
     <div class="cart__btn">
-      <button class="button" @click.prevent="cleanCart">
+      <button class="button" @click.prevent="onCleanCart">
         Отправить заказ
       </button>
     </div>
@@ -63,9 +67,19 @@ import MinMax from '@/components/cart/minmax/index'
 @Component({
   components: {
     MinMax
+  },
+  head () {
+    return {
+      title: `Корзина | ${process.env.appName}`
+    }
   }
 })
 export default class Cart extends Vue {
+  /**
+   * * Переменная для блокировки кнопки
+   */
+  inProcess = false
+
   /**
    * * Массив товаров для рендеринга с полем qty
    */
@@ -85,23 +99,25 @@ export default class Cart extends Vue {
   qty
 
   /**
-   * * Удалить товар из корзины
-   */
-  @Action('cart/removeFromCart')
-  removeFromCart
-
-  /**
-   * * Удалить товар из корзины с id
-   */
-  onRemoveFromCart (id) {
-    this.removeFromCart(id)
-  }
-
-  /**
    * * Количество товаров в корзине для одной позиции
    */
   @Getter('cart/cntInCartById')
   cntInCartById
+
+  /**
+   * * Ошибка сервера
+   */
+  @Getter('error')
+  error
+
+  /**
+   * * Тост при ошибке сервера
+   */
+  mounted () {
+    if (this.error !== null) {
+      this.$message.error(this.error)
+    }
+  }
 
   /**
    * * Количество товаров в корзине для одной позиции с id
@@ -111,16 +127,64 @@ export default class Cart extends Vue {
   }
 
   /**
+   * * Удалить товар из корзины
+   */
+  @Action('cart/removeFromCart')
+  removeFromCart
+
+  /**
    * * Очистить корзину
    */
   @Action('cart/cleanCart')
   cleanCart
 
   /**
+   * * Удалить товар из корзины с id
+   */
+  async onRemoveFromCart (id) {
+    try {
+      this.inProcess = true
+
+      const formData = {
+        id
+      }
+
+      await this.removeFromCart(formData)
+
+      this.$message.warning('Товар удален из корзины')
+    } catch (e) {
+      this.$message.error('Ошибка удаления товара из корзины')
+    } finally {
+      this.inProcess = false
+    }
+  }
+
+  /**
+   * * Очистить корзину
+   */
+  async onCleanCart () {
+    try {
+      this.inProcess = true
+
+      await this.cleanCart()
+
+      this.$message.success('Заказ отправлен')
+    } catch (e) {
+      this.$message.error('Ошибка отправки заказа')
+    } finally {
+      this.inProcess = false
+    }
+  }
+
+  /**
    * * Получить корзину с сервера
    */
   async asyncData (ctx) {
-    await ctx.store.dispatch('cart/getCart')
+    try {
+      await ctx.store.dispatch('cart/getCart')
+    } catch (e) {
+
+    }
   }
 }
 </script>

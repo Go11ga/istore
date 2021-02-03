@@ -1,8 +1,10 @@
 <template>
   <div>
     <bread-crumbs :pages="breadcumbs" />
+
     <div class="catalog">
       <h1>Категория: {{ currentCategoryRender.cTitle }}</h1>
+
       <div class="catalog__list">
         <catalog-item
           v-for="product in productsRender"
@@ -11,6 +13,7 @@
           :category="currentCategoryRender.cCateg"
         />
       </div>
+
       <div class="catalog__pagination">
         <pagination
           :current-page="pageNumber"
@@ -32,6 +35,11 @@ import BreadCrumbs from '@/components/common/ui/breadcrumbs/index'
     CatalogItem,
     Pagination,
     BreadCrumbs
+  },
+  head () {
+    return {
+      title: `${this.currentCategoryRender.cTitle} | ${process.env.appName}`
+    }
   }
 })
 export default class Category extends Vue {
@@ -48,18 +56,30 @@ export default class Category extends Vue {
   productsChunk
 
   /**
-   * * Массив товаров для рендеринга с параметрами
-   * @param {*} params - параметры роутера { category: 'jewelery', page: '1' }
-   */
-  get productsRender () {
-    return this.productsChunk(this.params)
-  }
-
-  /**
    * * Размер пагинации
    */
   @Getter('products/paginationLength')
   paginationLength
+
+  /**
+   * * Выбранная категория
+   */
+  @Getter('catalog/currentCategory')
+  currentCategory
+
+  /**
+   * * Ошибка сервера
+   */
+  @Getter('error')
+  error
+
+  /**
+   * * Массив товаров для рендеринга с параметрами роутера { category: 'jewelery', page: '1' }
+   *
+   */
+  get productsRender () {
+    return this.productsChunk(this.params)
+  }
 
   /**
    * * Размер пагинации для выбранной категории
@@ -74,12 +94,6 @@ export default class Category extends Vue {
   get pageNumber () {
     return this.params.page
   }
-
-  /**
-   * * Выбранная категория
-   */
-  @Getter('catalog/currentCategory')
-  currentCategory
 
   /**
    * * Выбранная категория с параметром
@@ -108,6 +122,12 @@ export default class Category extends Vue {
     ]
 
     return crumbs
+  }
+
+  mounted () {
+    if (this.error !== null) {
+      this.$message.error(this.error)
+    }
   }
 }
 </script>

@@ -1,6 +1,10 @@
 <template>
   <div class="minmax">
-    <button class="button button--remove" @click.prevent="onDecrease">
+    <button
+      class="button button--remove"
+      :disabled="inProcess"
+      @click.prevent="onDecrease"
+    >
       -
     </button>
     <input
@@ -9,7 +13,11 @@
       type="text"
       @input="onSetCnt()"
     />
-    <button class="button" @click.prevent="onIncrease">
+    <button
+      class="button"
+      :disabled="inProcess"
+      @click.prevent="onIncrease"
+    >
       +
     </button>
   </div>
@@ -34,14 +42,8 @@ export default class MinMax extends Vue {
    * "qty": "1"
    * }
    */
-  @Prop()
+  @Prop({ required: true, type: Object })
   model
-
-  /**
-   * * Изменение количества в корзине
-   */
-  @Action('cart/changeCnt')
-  changeCnt
 
   /**
    * * Свойства для v-model input'а
@@ -50,14 +52,37 @@ export default class MinMax extends Vue {
     return {
       current: this.model.qty,
       min: 1,
-      max: 10
+      max: 10,
+      inProcess: false
     }
   }
 
-  applyCurrent (newCnt) {
-    const newCurrent = Math.max(Math.min(newCnt, this.max), this.min)
-    this.changeCnt({ id: this.model.id, qty: newCurrent })
-    this.current = newCurrent
+  /**
+   * * Изменение количества в корзине
+   */
+  @Action('cart/changeCnt')
+  changeCnt
+
+  async applyCurrent (newCnt) {
+    try {
+      const newCurrent = Math.max(Math.min(newCnt, this.max), this.min)
+
+      const formData = {
+        id: this.model.id,
+        qty: newCurrent
+      }
+
+      this.inProcess = true
+
+      await this.changeCnt(formData)
+
+      this.current = newCurrent
+      this.$message.success('Количество изменено')
+    } catch (e) {
+      this.$message.error('Не удалось изменить количество')
+    } finally {
+      this.inProcess = false
+    }
   }
 
   onDecrease () {

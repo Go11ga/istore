@@ -22,14 +22,16 @@
 </template>
 
 <script>
-import { Component, Vue } from 'nuxt-property-decorator'
-import { Getter } from 'vuex-class'
+import { Component, Vue, Getter } from 'nuxt-property-decorator'
 import { mixChunck } from '@/utils/arrays'
 import CatalogMenuItem from '@/components/catalog/catalog-menu-item/index'
 
 @Component({
   components: {
     CatalogMenuItem
+  },
+  head: {
+    title: `Каталог | ${process.env.appName}`
   }
 })
 export default class CatalogApp extends Vue {
@@ -40,10 +42,25 @@ export default class CatalogApp extends Vue {
   categoriesList
 
   /**
+   * * Ошибка сервера
+   */
+  @Getter('error')
+  error
+
+  /**
    * * Делим категории на чанки
    */
   get categoryChunks () {
     return mixChunck(this.categoriesList, 3, 2)
+  }
+
+  /**
+   * * Показ оишбки при загрузке категорий
+   */
+  mounted () {
+    if (this.error !== null) {
+      this.$message.error(this.error)
+    }
   }
 }
 </script>

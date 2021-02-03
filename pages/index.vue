@@ -8,6 +8,11 @@
 </template>
 
 <script>
+export default {
+  head: {
+    title: `Главная | ${process.env.appName}`
+  }
+}
 
 </script>
 

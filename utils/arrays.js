@@ -1,8 +1,8 @@
 /**
  * * Чанки переменной длинны
- * @param array - массив
- * @param chunkSizeMin - размер первого чанка
- * @param chunkSizeMax - размер второго чанка
+ * @param { array } array - массив
+ * @param { number } chunkSizeMin - размер первого чанка
+ * @param { number } chunkSizeMax - размер второго чанка
  */
 export function mixChunck (array, chunkSizeMin, chunkSizeMax) {
   const a = []

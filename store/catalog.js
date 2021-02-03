@@ -1,21 +1,40 @@
 export const state = () => {
   return {
-    /**
-     * * Список категорий
-     */
     categoriesList: []
   }
 }
 
 export const getters = {
   /**
-   * * Получить список категорий
+   * * Массив со списком категорий
+   * @return {[
+   *  {
+   *    "id": 1,
+   *    "cTitle": "Ювелирные изделия",
+   *    "cCateg": "jewelery",
+   *    "cMetaDescription": "Мета описание",
+   *    "cDesc": "Описание",
+   *    "products": []
+   *  }
+   * ]}
    */
   categoriesList (state) {
     return state.categoriesList
   },
   /**
-   * * Получить одну категорию по параметру из роутера
+   * * Получить объект с одной категорий параметру из роутера
+   * @param { string } category 'jewelery' Название категории
+   * @return {
+   *  {
+   *    "id": 1,
+   *    "cTitle": "Ювелирные изделия",
+   *    "cCateg": "jewelery",
+   *    "cMetaDescription": "Мета описание",
+   *    "cDesc": "Описание",
+   *    "products": []
+   *  }
+   * }
+   * }
    */
   currentCategory: (state) => (category) => {
     return state.categoriesList.find(el => el.cCateg === category)

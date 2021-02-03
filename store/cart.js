@@ -7,6 +7,7 @@ export const state = () => {
 export const getters = {
   /**
    * * Длина массива корзины
+   * @return { number }
    */
   qty (state) {
     return state.cart.length
@@ -14,6 +15,7 @@ export const getters = {
 
   /**
    * * Количество товаров в корзине по шт., всего
+   * @return { number }
    */
   qtyTotal (state) {
     return state.cart.reduce((total, el) => {
@@ -22,15 +24,21 @@ export const getters = {
   },
 
   /**
-   * * Получение индекса в массиве по id
+   * * Получение индекса товара в массиве по id
+   * @param { number } id id товара
+   * @return { number }
    */
   indById: (state) => (id) => {
+    // todo проверить API
+    // if (typeof (state.cart) !== 'string') {
     return state.cart.findIndex(pr => parseInt(pr.id) === id)
+    // }
   },
 
   /**
-   * * Товар в корзине?
-   * boolean
+   * * Товар в корзине по id
+   * @param { numer } id id товара
+   * @return { boolean }
    */
   inCart: (state, getters) => (id) => {
     return getters.indById(id) !== -1
@@ -38,16 +46,31 @@ export const getters = {
 
   /**
    * * Количество товара в корзине в шт. по id
+   * @param { numer } id id товара
+   * @return { number }
    */
   cntInCartById: (state, getters) => (id) => {
     if (getters.inCart(id)) {
-      return state.cart[getters.indById(id)].qty
+      return parseInt(state.cart[getters.indById(id)].qty)
     }
   },
 
   /**
-   * * Полное описание товаров + количество в корзине
+   * * Массив товаров с полным описанием количество в корзине
+   * @return {[
+   *    { "id": "3",
+   *      "pTitle": "Jolene",
+   *      "pSlug": 3516266,
+   *      "pPrice": 7903,
+   *      "pDesc": "Cillum",
+   *      "pCategory": "jewelery",
+   *      "pMetaDescription": "Jolene",
+   *      "pImg": "https://cataas.com/cat?width=350&height=273&i=3",
+   *      "qty": "1"
+   *    }
+   *  ]}
    */
+
   productsDetailed (state, getters, rootState, rootGetters) {
     return state.cart.map(el => {
       const info = rootGetters['products/one'](el.id)
@@ -57,6 +80,7 @@ export const getters = {
 
   /**
    * * Общая сумма товаров в корзине
+   * @return { number }
    */
   total (state, getters) {
     return getters.productsDetailed.reduce((total, el) => {
@@ -92,62 +116,62 @@ export const actions = {
   async getCart ({ commit }) {
     try {
       const cart = await this.$axios.$get('https://api2.garrykhr.ru/api/cart')
+
       commit('setCart', cart)
     } catch (e) {
-      console.log(e)
+      commit('setError', 'Ошибка загрузки данных', { root: true })
     }
   },
 
-  async addToCart ({ commit, state, getters }, id) {
+  async addToCart ({ commit, getters }, { id }) {
     try {
       if (!getters.inCart(id)) {
-        const response = await this.$axios.$post(`https://api2.garrykhr.ru/api/cart/add?add=${id}&param1=1`)
-        if (response) {
-          commit('addToCart', id)
-        }
+        await this.$axios.$post(`https://api2.garrykhr.ru/api/cart/add?add=${id}&param1=1`)
+
+        commit('addToCart', id)
       }
     } catch (e) {
       console.log(e)
+      throw e
     }
   },
 
-  async removeFromCart ({ commit, state, getters }, id) {
+  async removeFromCart ({ commit, getters }, { id }) {
     try {
       if (getters.inCart(parseInt(id))) {
-        const response = await this.$axios.$post(`https://api2.garrykhr.ru/api/cart/del?del=${id}`)
-        if (response) {
-          commit('removeFromCart', getters.indById(parseInt(id)))
-        }
+        await this.$axios.$post(`https://api2.garrykhr.ru/api/cart/del?del=${id}`)
+
+        commit('removeFromCart', getters.indById(parseInt(id)))
       }
     } catch (e) {
       console.log(e)
+      throw e
     }
   },
 
-  async changeCnt ({ commit, state, getters }, item) {
+  async changeCnt ({ commit, state, getters }, { id, qty }) {
     try {
-      const { id, qty } = item
       if (getters.inCart(parseInt(id))) {
-        const response = await this.$axios.$post(`https://api2.garrykhr.ru/api/cart/upd?upd=${id}&param1=${qty}`)
-        if (response) {
-          const ind = getters.indById(parseInt(id))
-          commit('setCnt', { ind, qty })
-        }
+        await this.$axios.$post(`https://api2.garrykhr.ru/api/cart/upd?upd=${id}&param1=${qty}`)
+
+        const ind = getters.indById(parseInt(id))
+        commit('setCnt', { ind, qty })
       }
     } catch (e) {
       console.log(e)
+      throw e
     }
   },
 
-  async cleanCart ({ commit, state, getters }) {
+  async cleanCart ({ commit, getters }) {
     try {
-      const response = await this.$axios.$post('https://api2.garrykhr.ru/api/cart/delall?delall=1')
+      await this.$axios.$post('https://api2.garrykhr.ru/api/cart/delall?delall=1')
       const cnt = getters.qty
-      if (response) {
-        commit('cleanCart', cnt)
-      }
+
+      commit('cleanCart', cnt)
     } catch (e) {
       console.log(e)
+      throw e
     }
   }
 }

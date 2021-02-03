@@ -4,6 +4,7 @@
       v-if="!isInCart"
       :key="1"
       class="button"
+      :disabled="inProcess"
       @click.prevent="onAddToCart"
     >
       Добавить в корзину
@@ -24,35 +25,18 @@ import { Vue, Component, Prop, Getter, Action } from 'nuxt-property-decorator'
 @Component()
 export default class CartBtn extends Vue {
   /**
+   * * Переменная для блокировки кнопок
+   */
+  inProcess = false
+
+  /**
    * * id продукта
-   * 1
    */
-  @Prop()
+  @Prop({ required: true, type: Number })
   id
-
-  @Action('cart/addToCart')
-  addToCart
-
-  /**
-   * * Добавить продукт в корзину
-   */
-  onAddToCart () {
-    this.addToCart(this.id)
-  }
-
-  @Action('cart/removeFromCart')
-  removeFromCart
-
-  /**
-   * * Удалить продукт из корзины
-   */
-  onRemoveFromCart () {
-    this.removeFromCart(this.id)
-  }
 
   /**
    * * Продукт в корзине
-   * boolean
    */
   @Getter('cart/inCart')
   inCart
@@ -62,6 +46,60 @@ export default class CartBtn extends Vue {
    */
   get isInCart () {
     return this.inCart(this.id)
+  }
+
+  /**
+   * * Добавить продукт в корзину
+   */
+  @Action('cart/addToCart')
+  addToCart
+
+  /**
+   * * Удалить продукт из корзины
+   */
+  @Action('cart/removeFromCart')
+  removeFromCart
+
+  /**
+   * * Добавить продукт в корзину с id
+   */
+  async onAddToCart () {
+    try {
+      this.inProcess = true
+
+      const formData = {
+        id: this.id
+      }
+
+      await this.addToCart(formData)
+
+      this.$message.success('Товар добавлен в корзину')
+    } catch (e) {
+      this.$message.error('Ошибка добавления товара в корзину')
+    } finally {
+      this.inProcess = false
+    }
+  }
+
+  /**
+   * * Удалить продукт из корзины c id
+   */
+  async onRemoveFromCart () {
+    try {
+      this.inProcess = true
+
+      const formData = {
+        id: this.id
+      }
+
+      await this.removeFromCart(formData)
+
+      this.$message.warning('Товар удален из корзины')
+    } catch (e) {
+      this.$message.error('Ошибка удаления товара из корзины')
+    } finally {
+      this.inProcess = false
+    }
   }
 }
 </script>
